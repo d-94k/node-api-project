@@ -26,4 +26,20 @@ test ("GET /cats", async () => {
         .expect(200)
         .expect("Content-Type", /application\/json/);
     expect(response.body).toEqual(planets)
-})
+});
+
+test ("POST /cats", async () => {
+    const planet = {
+            name: "Jupiter",
+            description: null,
+            diameter: 5678,
+            moons: 0
+        };
+
+    const response = await request
+        .post("/cats")
+        .send(planet)
+        .expect(201)
+        .expect("Content-Type", /application\/json/);
+    expect(response.body).toEqual(planet)
+});
