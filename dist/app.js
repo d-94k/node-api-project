@@ -47,6 +47,19 @@ app.put("/cats/:id(\\d+)", (0, validation_1.validate)({ body: validation_1.plane
         next('Cannot PUT /planets/' + planetId);
     }
 });
+app.delete("/cats/:id(\\d+)", async (request, response, next) => {
+    const planetId = Number(request.params.id);
+    try {
+        await client_1.default.planet.delete({
+            where: { id: planetId }
+        });
+        response.status(204).end();
+    }
+    catch (error) {
+        response.status(404);
+        next('Cannot DELETE /planets/' + planetId);
+    }
+});
 app.use(validation_1.validationErrorMiddleware);
 exports.default = app;
 //# sourceMappingURL=app.js.map
