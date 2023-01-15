@@ -7,8 +7,13 @@ const express_1 = __importDefault(require("express"));
 require("express-async-errors");
 const client_1 = __importDefault(require("./lib/prisma/client"));
 const validation_1 = require("./validation");
+const cors_1 = __importDefault(require("cors"));
+const corsOptions = {
+    origin: "http://localhost:3000"
+};
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use((0, cors_1.default)(corsOptions));
 app.get("/cats", async (request, response) => {
     const planets = await client_1.default.planet.findMany();
     response.json(planets);
