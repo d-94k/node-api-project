@@ -13,6 +13,18 @@ app.get("/cats", async (request, response) => {
     const planets = await client_1.default.planet.findMany();
     response.json(planets);
 });
+app.get("/cats/:id(\\d+)", async (request, response, next) => {
+    const planetId = Number(request.params.id);
+    const planet = await client_1.default.planet.findUnique({
+        where: { id: planetId }
+    });
+    if (!planet) {
+        response.status(404);
+        return next('Cannot GET /cats/' + planetId);
+    }
+    ;
+    response.json(planet);
+});
 app.post("/cats", (0, validation_1.validate)({ body: validation_1.planetSchema }), async (request, response) => {
     const planetData = request.body;
     const planet = await client_1.default.planet.createMany({
