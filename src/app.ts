@@ -12,7 +12,10 @@ app.get ("/cats", async (request, response) => {
 });
 
 app.post ("/cats", validate ({body: planetSchema}), async (request, response) => {
-    const planet: PlanetData = request.body;
+    const planetData: PlanetData = request.body;
+    const planet = await prisma.planet.createMany ({
+        data: planetData
+    })
     response.status(201).json(planet);
 });
 

@@ -14,7 +14,10 @@ app.get("/cats", async (request, response) => {
     response.json(planets);
 });
 app.post("/cats", (0, validation_1.validate)({ body: validation_1.planetSchema }), async (request, response) => {
-    const planet = request.body;
+    const planetData = request.body;
+    const planet = await client_1.default.planet.createMany({
+        data: planetData
+    });
     response.status(201).json(planet);
 });
 app.use(validation_1.validationErrorMiddleware);

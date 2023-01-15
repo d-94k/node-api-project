@@ -19,7 +19,7 @@ test ("GET /cats", async () => {
     ];
 
     // @ts-ignore
-    prismaMock.planet.findMany.mockResolvedValue(planets);
+    prismaMock.planet.create.mockResolvedValue(planets);
 
     const response = await request
         .get("/cats")
